@@ -327,3 +327,14 @@ def zorp_group_delayz(zorp, w, fs=1):
     r2 = r**2
     cos = np.cos(W - phi)
     return w, (r2 - r*cos) / (r2 + 1 - 2*r*cos)
+
+
+def db(x, *, power=False):
+    """Decibel."""
+    with np.errstate(divide='ignore'):
+        return (10 if power else 20) * np.log10(np.abs(x))
+
+
+def s2ms(t):
+    """Convert seconds to milliseconds."""
+    return t * 1000
