@@ -1,3 +1,4 @@
+"""Numerical computation of group delay."""
 import numpy as np
 from scipy.signal import tf2sos
 from scipy.signal.filter_design import _validate_sos
@@ -321,7 +322,6 @@ def zorp_group_delayz(zorp, w, fs=1):
     gd : ndarray
         The group delay in seconds.
     """
-
     W = 2 * np.pi * w / fs
     r, phi = np.abs(zorp), np.angle(zorp)
     r2 = r**2

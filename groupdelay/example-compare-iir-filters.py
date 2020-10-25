@@ -1,4 +1,4 @@
-"""Compare frequency response and group delay of analog IIR LPFs"""
+"""Compare frequency response and group delay of analog IIR LPFs."""
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, cheby1, cheby2, ellip, freqz
@@ -6,15 +6,18 @@ from util import group_delayz
 
 
 def db(x, *, power=False):
+    """Decibel."""
     with np.errstate(divide='ignore'):
         return (10 if power else 20) * np.log10(np.abs(x))
 
 
 def s2ms(t):
+    """Convert seconds to milliseconds."""
     return t * 1000
 
 
 def plot_frequency_response(f, H, gd, name, flim=None, mlim=None, tlim=None):
+    """Plot magnitude and group delay response."""
     lw = 2
     fig, ax = plt.subplots(figsize=(6, 2.5), ncols=2, sharex=True,
                            gridspec_kw=dict(wspace=0.35))
