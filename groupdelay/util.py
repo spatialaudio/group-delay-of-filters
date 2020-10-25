@@ -1,5 +1,6 @@
 import numpy as np
-from scipy.signal import tf2sos, _validate_sos
+from scipy.signal import tf2sos
+from scipy.signal.filter_design import _validate_sos
 
 
 def group_delays(b, a, w, plot=None):
@@ -192,10 +193,8 @@ def group_delayz(b, a, w, plot=None, fs=2*np.pi):
     """
     b, a = map(np.atleast_1d, (b, a))
     sos = tf2sos(b, a)
-    w, gd = sos_group_delayz(sos, w, fs)
-    if plot is not None:
-        plot(w, gd)
-    return sos_group_delayz(sos, w, fs)
+    w, gd = sos_group_delayz(sos, w, plot, fs)
+    return w, gd
 
 
 def sos_group_delayz(sos, w, plot=None, fs=2*np.pi):
