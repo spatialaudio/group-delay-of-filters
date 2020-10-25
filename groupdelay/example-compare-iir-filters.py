@@ -34,7 +34,7 @@ def plot_frequency_response(f, H, gd, name, flim=None, mlim=None, tlim=None):
         ax[1].set_ylim(tlim)
     ax[0].set_ylabel('Magnitude')
     ax[1].set_ylabel('Group delay in ms')
-    plt.savefig('LPF-{}.pdf'.format(name), bbox_inches='tight')
+    plt.savefig('LPF-{}.png'.format(name), bbox_inches='tight')
     return fig, ax
 
 
