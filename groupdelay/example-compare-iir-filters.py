@@ -1,8 +1,14 @@
-"""Compare frequency response and group delay of analog IIR LPFs."""
+"""Frequency response and group delay of analog IIR LPFs.
+- Butterworth
+- Chebyshev-I
+- Chebyshev-II
+- Elliptic filters
+cf. https://ccrma.stanford.edu/~jos/filters/Group_Delay_Examples_Matlab.html
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, cheby1, cheby2, ellip, freqz
-from util import group_delayz, db, s2ms
+from util import group_delayz, s2ms
 
 
 def plot_frequency_response(f, H, gd, name, flim=None, mlim=None, tlim=None):
@@ -26,6 +32,7 @@ def plot_frequency_response(f, H, gd, name, flim=None, mlim=None, tlim=None):
         ax[1].set_ylim(tlim)
     ax[0].set_ylabel('Magnitude')
     ax[1].set_ylabel('Group delay in ms')
+    fig.suptitle('{}'.format(name))
     plt.savefig('LPF-{}.png'.format(name), bbox_inches='tight')
     return fig, ax
 
