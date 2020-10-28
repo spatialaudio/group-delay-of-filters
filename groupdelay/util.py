@@ -1,6 +1,6 @@
 """Numerical computation of group delay."""
 import numpy as np
-from scipy.signal import tf2sos
+from scipy.signal import tf2sos, group_delay
 from scipy.signal.filter_design import _validate_sos
 
 
@@ -193,8 +193,12 @@ def group_delayz(b, a, w, plot=None, fs=2*np.pi):
         The group delay in seconds.
     """
     b, a = map(np.atleast_1d, (b, a))
-    sos = tf2sos(b, a)
-    gd = sos_group_delayz(sos, w, plot, fs)[1]
+    if len(a) == 1:
+        # scipy.signal.group_delay returns gd in samples
+        return w, group_delay((b, a), w=w, fs=fs)[1] / fs
+    else:
+        sos = tf2sos(b, a)
+        gd = sos_group_delayz(sos, w, plot, fs)[1]
     return w, gd
 
 
