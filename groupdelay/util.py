@@ -29,7 +29,7 @@ def group_delays(b, a, w, plot=None):
     """
     b, a = map(np.atleast_1d, (b, a))
     sos = tf2sos(b, a)
-    gd = sos_group_delays(sos, w)
+    gd = sos_group_delays(sos, w)[1]
     if plot is not None:
         plot(w, gd)
     return w, gd
@@ -96,17 +96,17 @@ def quadfilt_group_delays(b, w):
     kw_tol = dict(rtol=1e-12, atol=1e-16)
     if b[0] == 0:
         if np.isclose(b[1], 0, **kw_tol) or np.isclose(b[2], 0, **kw_tol):
-            return np.zeros_like(w)
+            return w, np.zeros_like(w)
         else:
-            return -(b[1]*b[2]) / (b[1]**2*w2 + b[2]**2)
+            return w, -(b[1]*b[2]) / (b[1]**2*w2 + b[2]**2)
     elif np.isclose(b[2], 0, **kw_tol):
         if np.isclose(b[1], 0, **kw_tol):
-            return np.zeros_like(w)
+            return w, np.zeros_like(w)
         else:
-            return -(b[0]*b[1]) / (b[0]**2*w2 + b[1]**2)
+            return w, -(b[0]*b[1]) / (b[0]**2*w2 + b[1]**2)
     else:
-        return -((b[0]*b[1]*w2 + b[1]*b[2])
-                 / (b[0]**2*w4 + (b[1]**2 - 2*b[0]*b[2])*w2 + b[2]**2))
+        return w, -((b[0]*b[1]*w2 + b[1]*b[2])
+                    / (b[0]**2*w4 + (b[1]**2 - 2*b[0]*b[2])*w2 + b[2]**2))
 
 
 def zpk_group_delays(z, p, k, w, plot=None):
@@ -194,7 +194,7 @@ def group_delayz(b, a, w, plot=None, fs=2*np.pi):
     """
     b, a = map(np.atleast_1d, (b, a))
     sos = tf2sos(b, a)
-    w, gd = sos_group_delayz(sos, w, plot, fs)
+    gd = sos_group_delayz(sos, w, plot, fs)[1]
     return w, gd
 
 
