@@ -195,10 +195,12 @@ def group_delayz(b, a, w, plot=None, fs=2*np.pi):
     b, a = map(np.atleast_1d, (b, a))
     if len(a) == 1:
         # scipy.signal.group_delay returns gd in samples
-        return w, group_delay((b, a), w=w, fs=fs)[1] / fs
+        gd = group_delay((b, a), w=w, fs=fs)[1] / fs
     else:
         sos = tf2sos(b, a)
         gd = sos_group_delayz(sos, w, plot, fs)[1]
+    if plot is not None:
+        plot(w, gd)
     return w, gd
 
 
@@ -303,6 +305,8 @@ def zpk_group_delay(z, p, k, w, plot=None, fs=2*np.pi):
         gd += zorp_group_delayz(z_i, w)[1]
     for p_i in p:
         gd -= zorp_group_delayz(p_i, w)[1]
+    if plot is not None:
+        plot(w, gd)
     return w, gd
 
 
