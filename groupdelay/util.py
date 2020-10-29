@@ -194,7 +194,7 @@ def group_delayz(b, a, w, plot=None, fs=2*np.pi):
     """
     b, a = map(np.atleast_1d, (b, a))
     if len(a) == 1:
-        # scipy.signal.group_delay returns gd in samples
+        # scipy.signal.group_delay returns gd in samples thus scaled by 1/fs
         gd = group_delay((b, a), w=w, fs=fs)[1] / fs
     else:
         sos = tf2sos(b, a)
