@@ -8,7 +8,8 @@ cf. https://ccrma.stanford.edu/~jos/filters/Group_Delay_Examples_Matlab.html
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import butter, cheby1, cheby2, ellip, freqz
-from util import group_delayz, s2ms
+from groupdelay import group_delayz
+from groupdelay.util import s2ms
 
 
 def plot_frequency_response(f, H, gd, name, flim=None, mlim=None, tlim=None):

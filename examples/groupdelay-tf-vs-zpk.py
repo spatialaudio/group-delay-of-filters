@@ -6,8 +6,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import freqs, freqs_zpk, zpk2tf
-from util import group_delays, zpk_group_delays, zorp_group_delays,\
-                 s2ms, db
+from groupdelay import group_delays, zpk_group_delays, zorp_group_delays
+from groupdelay.util import s2ms, db
 
 
 def higher_order_shelving_holters(Gd, N, wc=1, normalize=True):
